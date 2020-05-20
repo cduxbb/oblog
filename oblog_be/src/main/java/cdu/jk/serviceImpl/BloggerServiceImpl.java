@@ -2,11 +2,10 @@ package cdu.jk.serviceImpl;
 
 import cdu.jk.dao.BloggerDao;
 import cdu.jk.entity.Blogger;
+import cdu.jk.entity.BloggerView;
 import cdu.jk.service.BloggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /***
 *@Description 博主相关接口实现类
@@ -41,14 +40,43 @@ public class BloggerServiceImpl implements BloggerService {
             return false;
         }
     }
-
+    /***
+    *@Description 查询博主个人信息
+    *@Param [userName] 博主账号
+    *@Return cdu.jk.entity.Blogger 博主信息表
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 13:17
+    *@Modify by xiao 2020/5/20 13:17
+    */
     @Override
     public Blogger selectBloggerByUserName(String userName) {
-        return null;
-    }
 
+        return bloggerDao.selectBloggerByUserName(userName);
+    }
+    /***
+    *@Description 更新博主个人信息
+    *@Param [blogger] 博主个人信息表
+    *@Return java.lang.Integer 数据库执行返回值
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 13:20
+    *@Modify by xiao 2020/5/20 13:20
+    */
     @Override
-    public Integer updateBlogger(Blogger blogger) {
-        return null;
+    public Integer updateBlogger(BloggerView blogger) {
+
+        return bloggerDao.updateBlogger(blogger);
+    }
+    /***
+    *@Description 添加用户
+    *@Param [blogger] 博主表
+    *@Return java.lang.Integer 数据库执行返回值
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 14:04
+    *@Modify by xiao 2020/5/20 14:04
+    */
+    @Override
+    public Integer addBlogger(Blogger blogger) {
+
+        return bloggerDao.addBlogger(blogger);
     }
 }

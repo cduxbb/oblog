@@ -1,5 +1,7 @@
 package cdu.jk.controller;
 
+import cdu.jk.entity.Blogger;
+import cdu.jk.entity.BloggerView;
 import cdu.jk.serviceImpl.BloggerServiceImpl;
 import cdu.jk.utils.UserUtil;
 import com.google.gson.Gson;
@@ -78,6 +80,92 @@ public class BloggerController {
         Gson gson = new Gson();
         return gson.toJson(loginResult);
     }
+    /***
+    *@Description 查询博主个人信息请求接口
+    *@Param [userName] 博主账号
+    *@Return java.lang.String 博主个人信息表
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 13:33
+    *@Modify by xiao 2020/5/20 13:33
+    */
+    @PostMapping(value = "/query/blogger/info")
+    @ResponseBody
+    @ApiOperation(value = "查询博主个人信息")
+    public String selectBloggerByUserName(@RequestParam(value = "userName") String userName){
 
+        logger.error("userName: " + userName);
+        if(!"".equals(userName)){
+            Blogger isBlogger = bloggerService.selectBloggerByUserName(userName);
+            if(isBlogger != null){//查到个人信息，设置密码为*
+                isBlogger.setPassword("*");
+                Gson gson = new Gson();
+                return gson.toJson(isBlogger);
+            }else{
+                return "404";
+            }
+        }else{
+            return "406";
+        }
+    }
+    /***
+    *@Description 更新博主个人信息
+    *@Param [blogger] 博主视图信息
+    *@Return java.lang.String 前后端约定状态码
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 13:39
+    *@Modify by xiao 2020/5/20 13:39
+    */
+    @GetMapping(value = "/update/blogger/info")
+    @ResponseBody
+    @ApiOperation(value = "更新博主个人信息")
+    public String updateBlogger(@RequestBody BloggerView blogger){
+
+        logger.error("blogger " + blogger.toString());
+        if(!"".equals(blogger.getUserName())){
+            Integer updateResult = bloggerService.updateBlogger(blogger);
+            if(updateResult == 1){
+                return "200";
+            }else {
+                return "404";
+            }
+        }else {
+            return "406";
+        }
+    }
+    /***
+    *@Description 添加博主
+    *@Param [userName, password, email, nickname, addres] 参数
+    *@Return java.lang.String 前后端约定状态码
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 14:27
+    *@Modify by xiao 2020/5/20 14:27
+    */
+    @GetMapping(value = "/add/blogger")
+    @ResponseBody
+    @ApiOperation(value = "添加博主")
+    public String addBlogger(@RequestParam(value = "userName") String userName,
+                             @RequestParam(value = "password") String password,
+                             @RequestParam(value = "email") String email,
+                             @RequestParam(value = "nickname",required = false) String nickname,
+                             @RequestParam(value = "address",required = false) String addres){
+
+        Blogger blogger = new Blogger();
+        blogger.setUserName(userName);
+        blogger.setPassword(password);
+        blogger.setEmail(email);
+        blogger.setNickname(nickname);
+        blogger.setAddress(addres);
+        logger.error("参数："+ blogger.toString());
+        if(!"".equals(userName) && !"".equals(password) && !"".equals(email)){
+            Integer addResult = bloggerService.addBlogger(blogger);
+            if(addResult == 1){
+                return "200";
+            }else {
+                return "404";
+            }
+        }else {
+            return "406";
+        }
+    }
 
 }

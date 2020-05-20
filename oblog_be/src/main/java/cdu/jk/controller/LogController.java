@@ -4,6 +4,7 @@ import cdu.jk.entity.Log;
 
 import cdu.jk.serviceImpl.LogServiceImpl;
 import com.google.gson.Gson;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RequestMapping("/log")
 @Controller
+@Api(description = "日志记录相关操作接口Controller")
 public class LogController {
 
     @Autowired
