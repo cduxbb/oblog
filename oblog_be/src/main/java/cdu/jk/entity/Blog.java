@@ -1,6 +1,7 @@
 package cdu.jk.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 *@Date 2020/5/19 11:37
 */
 @Data
+@ToString
 public class Blog implements Serializable {
 
     private Integer blogId;     // 博客id
@@ -20,4 +22,7 @@ public class Blog implements Serializable {
     private Integer commentNum; // 评论数
     private Integer bloggerId;  // 博主id
     private String blogType;    // 博客类别、标签
+
+    //用于多表查询
+    private Blogger blogger;
 }

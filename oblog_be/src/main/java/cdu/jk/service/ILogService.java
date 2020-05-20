@@ -12,5 +12,5 @@ public interface ILogService {
 
     List<Log> findAllLog();
 
-    int deleteLog(Integer id);
+    int deleteLogs(Integer[] id);
 }

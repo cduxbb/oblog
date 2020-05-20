@@ -58,8 +58,8 @@ public class LogServiceImpl  implements ILogService {
     　　* @date 2020/5/19 17:13
     */
     @Override
-    public int deleteLog(Integer id) {
-        return logDao.deleteLog(id);
+    public int deleteLogs(Integer[] id) {
+        return logDao.deleteLogs(id);
     }
 
 

@@ -6,6 +6,8 @@ import cdu.jk.serviceImpl.LogServiceImpl;
 import com.google.gson.Gson;
 import io.swagger.annotations.ApiOperation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,27 +30,33 @@ public class LogController {
 
     @Autowired
     private LogServiceImpl logService;
+    private Logger logger = LoggerFactory.getLogger(TestController.class);
+
+
+
     @RequestMapping(value = "/findAllLog",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查询所有日志")
     public String findUserLog(){
+        logger.error("[ 查询所有日志方法 ] --- 参数 >>>>");
         //进行查询
         List<Log> allLog = logService.findAllLog();
         Gson gson = new Gson();
         return gson.toJson(allLog);
     }
 
-    @RequestMapping(value = "/deleteLog",method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteLogs",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "按id删除日志")
-    public String deletelogById(Integer id){
+    public String deletelogsById(Integer[] id){
 
+        logger.error("[ 删除日志方法 ] --- 参数 >>>> Id：" +id );
         if(id !=null){//参数不为空
-            int result = logService.deleteLog(id);
-            if(result==1){//删除成功
-                return "200";
-            }else {
+            int result = logService.deleteLogs(id);
+            if(result==0){//删除不成功
                 return "500";
+            }else {
+                return "200";
             }
         }else {
             return "406";
