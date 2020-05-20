@@ -5,6 +5,8 @@ import cdu.jk.utils.UserUtil;
 import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import java.util.List;
 @Api(description = "博主相关操作接口Controller")
 public class BloggerController {
 
+    private Logger logger = LoggerFactory.getLogger(BloggerController.class);
     private BloggerServiceImpl bloggerService;
     private UserUtil userUtil;
 
@@ -51,6 +54,7 @@ public class BloggerController {
                                @RequestParam(value = "userName") String userName,
                                @RequestParam(value = "password") String password){
 
+        logger.error("action: "+ action + " userName: "+ userName + " password: "+ password);
         List<String> loginResult = new ArrayList<>();
         String ssid = "0";
         if(!"".equals(userName) && !"".equals(password)){ //判断字符串非空

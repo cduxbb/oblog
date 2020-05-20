@@ -27,5 +27,10 @@ public interface CommentDao {
     //写评论成功更新博客表评论条数字段+1
     @Update("update oblog_db_blog set commentNum=commentNum+1 where blogId = #{blogId}")
     Integer addCommentNum(@Param("blogId") Integer blogId);
+    // 删除、批量删除评论
+    Integer deleteCommentByCommentId(Integer[] commentIdArray);
+    //删除、批量删除评论成功更新博客表评论条数字段减去对应条数
+    @Update("update oblog_db_blog set commentNum = commentNum-#{count} where blogId = #{blogId}")
+    Integer reduceCommentNum(@Param("blogId") Integer blogId,@Param("count") Integer count);
 
 }

@@ -81,12 +81,33 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Integer addCommentNum(Integer blogId) {
 
-        commentDao.addCommentNum(blogId);
-        return null;
+        return commentDao.addCommentNum(blogId);
     }
 
+    /***
+    *@Description 删除、批量删除评论业务逻辑
+    *@Param [commentIdArray]
+    *@Return java.lang.Integer
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 11:02
+    *@Modify by xiao 2020/5/20 11:02
+    */
     @Override
     public Integer deleteCommentByCommentId(Integer[] commentIdArray) {
-        return null;
+
+        return commentDao.deleteCommentByCommentId(commentIdArray);
+    }
+    /***
+    *@Description 删除、批量删除评论成功更新博客表评论条数字段减去对应条数
+    *@Param [blogId, count]
+    *@Return java.lang.Integer
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/20 11:56
+    *@Modify by xiao 2020/5/20 11:56
+    */
+    @Override
+    public Integer reduceCommentNum(Integer blogId, Integer count) {
+
+        return commentDao.reduceCommentNum(blogId,count);
     }
 }

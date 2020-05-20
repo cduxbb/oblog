@@ -20,4 +20,7 @@ public interface CommentService {
     Integer addCommentNum(Integer commentNum);
     // 删除、批量删除评论
     Integer deleteCommentByCommentId(Integer[] commentIdArray);
+    //删除、批量删除评论成功更新博客表评论条数字段减去对应条数
+    Integer reduceCommentNum(Integer blogId, Integer count);
+
 }
