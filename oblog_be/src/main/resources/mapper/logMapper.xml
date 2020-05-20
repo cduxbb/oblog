@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cdu.jk.dao.LogDao">
+<!--    插入日志-->
+    <insert id="saveLog" parameterType="cdu.jk.entity.Log">
+        insert into oblog_db_log(logTime,ip,visitUrl,visitMethod) value (#{logTime},#{ip},#{visitUrl},#{visitMethod})
+    </insert>
+<!--    查询日志-->
+    <select id="findAllLog" resultType="cdu.jk.entity.Log">
+        select * from oblog_db_log
+    </select>
+
+<!--    删除日志-->
+    <delete id="deleteLog" parameterType="int">
+        delete from oblog_db_log where logId=#{id}
+    </delete>
+
+</mapper>
