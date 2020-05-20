@@ -1,6 +1,7 @@
 package cdu.jk.service;
 
 import cdu.jk.entity.Blogger;
+import cdu.jk.entity.BloggerView;
 
 /***
 *@Description 博主相关业务接口
@@ -14,6 +15,8 @@ public interface BloggerService {
     //查询博主个人信息
     Blogger selectBloggerByUserName(String userName);
     //更新博主个人信息
-    Integer updateBlogger(Blogger blogger);
+    Integer updateBlogger(BloggerView blogger);
+    //添加用户
+    Integer addBlogger(Blogger blogger);
 
 }
