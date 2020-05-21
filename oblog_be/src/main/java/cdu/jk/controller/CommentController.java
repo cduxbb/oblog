@@ -41,7 +41,7 @@ public class CommentController {
     *@Date 2020/5/19 17:58
     *@Modify by xiao 2020/5/19 17:58
     */
-    @GetMapping(value = "/view/comm")
+    @RequestMapping(value = "/view/comm", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查看评论")
     public String viewComment(@RequestParam(value = "blogId") Integer blogId){
@@ -68,7 +68,7 @@ public class CommentController {
     *@Date 2020/5/19 18:21
     *@Modify by xiao 2020/5/19 18:21
     */
-    @GetMapping(value = "/write/comm")
+    @RequestMapping(value = "/write/comm", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "写评论留言")
     public String writeComment(@RequestParam(value = "blogId") Integer blogId,
@@ -89,8 +89,15 @@ public class CommentController {
             return "406";
         }
     }
-
-    @GetMapping(value = "/delete/comm")
+    /***
+    *@Description 删除/批量删除评论
+    *@Param [blogId, commentIdArray] 博客id、评论id数组
+    *@Return java.lang.String
+    *@Author cdu.bishop.xiao
+    *@Date 2020/5/21 9:43
+    *@Modify by xiao 2020/5/21 9:43
+    */
+    @RequestMapping(value = "delete/comm", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "删除/批量删除评论")
     public String deleteCommentByCommentId(
