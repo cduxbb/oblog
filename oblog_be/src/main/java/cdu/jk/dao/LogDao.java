@@ -34,11 +34,11 @@ public interface LogDao {
 
     /**
     　　* @Description: 按id删除博客
-       * @param id
+       * @param ids
     　　* @return
     　　* @throws
     　　* @author DXZ1
     　　* @date 2020/5/19 17:12
     */
-    int deleteLog(Integer id);
+    int deleteLogs(Integer[] ids);
 }

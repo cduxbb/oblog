@@ -1,6 +1,7 @@
 package cdu.jk.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 *@Date 2020/5/19 11:45
 */
 @Data
+@ToString
 public class Log implements Serializable {
 
     private Integer logId;    //日志id
