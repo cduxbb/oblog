@@ -10,10 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -43,10 +40,10 @@ public class BlogController {
     　　* @author DXZ1
     　　* @date 2020/5/20 15:00
     */
-    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllBlog/{pageNum}",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "分页查询博客")
-    public String findAllBlog(Integer pageNum){
+    public String findAllBlog(@PathVariable(value = "pageNum") Integer pageNum){
         if(pageNum!=null){
             logger.error("[ 查询所有博客方法 ] --- 参数 >>>> pageNum: "+pageNum);
             List<Blog> allBlog = blogService.findAllBlog(pageNum,10);
@@ -131,10 +128,10 @@ public class BlogController {
     　　* @author DXZ1
     　　* @date 2020/5/20 16:10
     */
-    @RequestMapping(value = "/findContent",method = RequestMethod.GET)
+    @RequestMapping(value = "/findContent/{blogId}",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "按博客id查看博客")
-    public String findBlogContentById(Integer blogId){
+    public String findBlogContentById(@PathVariable(value = "blogId") Integer blogId){
         if(blogId != null){
             logger.error("[ 查看博客内容方法 ] --- 参数 >>>> blogId: "+blogId);
             Blog blogCs = blogService.findBlogContent(blogId);
@@ -160,7 +157,7 @@ public class BlogController {
     @RequestMapping(value = "/deleteBlogs",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "批量删除博客")
-    public String deleteBlogs(Integer[] blogIds){
+    public String deleteBlogs(@RequestParam(value = "blogIds") Integer[] blogIds){
         if(blogIds !=null && blogIds.length!=0){
             logger.error("[ 删除博客内容方法 ] --- 参数 >>>> blogIds: "+blogIds);
             int result = blogService.deleteBlogs(blogIds);

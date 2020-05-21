@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -36,10 +34,10 @@ public class LogController {
 
 
 
-    @RequestMapping(value = "/findAllLog",method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllLog/{pageNum}",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查询所有日志")
-    public String findUserLog(Integer pageNum){
+    public String findUserLog(@PathVariable("pageNum") Integer pageNum){
         if(pageNum!=null){
             logger.error("[ 查询所有日志方法 ] --- 参数 >>>>");
             //进行查询
@@ -60,7 +58,7 @@ public class LogController {
     @RequestMapping(value = "/deleteLogs",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "按id批量删除日志")
-    public String deletelogsById(Integer[] id){
+    public String deletelogsById(@RequestParam(value = "id") Integer[] id){
 
         logger.error("[ 删除日志方法 ] --- 参数 >>>> Id：" +id );
         if(id !=null){//参数不为空

@@ -3,6 +3,7 @@ package cdu.jk.controller;
 
 import cdu.jk.entity.Log;
 import cdu.jk.service.ILogService;
+import cdu.jk.utils.CusAccessObjectUtil;
 import cdu.jk.utils.UserUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -33,6 +34,8 @@ public class LogAop {
     private ILogService logService;
     @Autowired
     private UserUtil userUtil;
+    @Autowired
+    private CusAccessObjectUtil cusAccessObjectUtil;
 
     @Autowired
     private HttpServletRequest request;
@@ -79,7 +82,9 @@ public class LogAop {
                     String[] methodValue = methodAnnotation.value();
                     url=classValue[0]+methodValue[0];//得到最终路径
                     //获取ip
-                    String ip = request.getRemoteAddr();
+//                    String ip = request.getRemoteAddr();
+                    //使用工具类获取真实ip
+                    String ip = cusAccessObjectUtil.getIpAddress(request);
                     Log sysLog = new Log();
                     sysLog.setIp(ip);
                     sysLog.setVisitMethod("[类名]： "+executionClass.getName()+"   [方法名] : "+executionMethod.getName());
