@@ -4,6 +4,7 @@ import cdu.jk.entity.Blog;
 import cdu.jk.service.IBolgService;
 import cdu.jk.utils.UserUtil;
 import com.google.gson.Gson;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/blog")
+@Api(description = "博客相关操作接口Controller")
 public class BlogController {
     @Autowired
     private IBolgService blogService;
@@ -48,11 +50,11 @@ public class BlogController {
         if(pageNum!=null){
             logger.error("[ 查询所有博客方法 ] --- 参数 >>>> pageNum: "+pageNum);
             List<Blog> allBlog = blogService.findAllBlog(pageNum,10);
-            if(allBlog!=null && allBlog.size()!=0){
+            if(allBlog!=null){
                 Gson gson = new Gson();
                 return gson.toJson(allBlog);
             }else {
-                return "500";
+                return "404";
             }
         }else {
             return "406";
@@ -84,7 +86,7 @@ public class BlogController {
             if(result!=0){
                 return "200";
             }else{
-                return "500";
+                return "404";
             }
         }else {
             return "406";
@@ -113,7 +115,7 @@ public class BlogController {
             if(result!=0){
                 return "200";
             }else{
-                return "500";
+                return "404";
             }
         }else {
             return "406";
@@ -140,7 +142,7 @@ public class BlogController {
                 Gson gson = new Gson();
                 return gson.toJson(blogCs);
             }else {
-                return "500";
+                return "404";
             }
         }else {
             return "406";
@@ -165,7 +167,7 @@ public class BlogController {
             if(result !=0){
                 return "200";
             }else {
-                return "500";
+                return "404";
             }
         }else {
             return "406";

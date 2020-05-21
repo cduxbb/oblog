@@ -4,6 +4,7 @@ import cdu.jk.entity.Log;
 
 import cdu.jk.serviceImpl.LogServiceImpl;
 import com.google.gson.Gson;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @RequestMapping("/log")
 @Controller
+@Api(description = "日志相关操作接口Controller")
 public class LogController {
 
     @Autowired
@@ -37,24 +39,34 @@ public class LogController {
     @RequestMapping(value = "/findAllLog",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "查询所有日志")
-    public String findUserLog(){
-        logger.error("[ 查询所有日志方法 ] --- 参数 >>>>");
-        //进行查询
-        List<Log> allLog = logService.findAllLog();
-        Gson gson = new Gson();
-        return gson.toJson(allLog);
+    public String findUserLog(Integer pageNum){
+        if(pageNum!=null){
+            logger.error("[ 查询所有日志方法 ] --- 参数 >>>>");
+            //进行查询
+            List<Log> allLog = logService.findAllLog(pageNum);
+            if(allLog!=null){
+                Gson gson = new Gson();
+                return gson.toJson(allLog);
+            }else {
+                return "404";
+            }
+
+        }else {
+            return "406";
+        }
+
     }
 
     @RequestMapping(value = "/deleteLogs",method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "按id删除日志")
+    @ApiOperation(value = "按id批量删除日志")
     public String deletelogsById(Integer[] id){
 
         logger.error("[ 删除日志方法 ] --- 参数 >>>> Id：" +id );
         if(id !=null){//参数不为空
             int result = logService.deleteLogs(id);
             if(result==0){//删除不成功
-                return "500";
+                return "404";
             }else {
                 return "200";
             }

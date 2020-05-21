@@ -4,6 +4,7 @@ import cdu.jk.dao.LogDao;
 import cdu.jk.entity.Log;
 import cdu.jk.service.ILogService;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,8 @@ public class LogServiceImpl  implements ILogService {
     　　* @date 2020/5/19 16:57
     */
     @Override
-    public List<Log> findAllLog() {
+    public List<Log> findAllLog(Integer pageNum) {
+        PageHelper.startPage(pageNum,10);
         return logDao.findAllLog();
     }
 
