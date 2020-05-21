@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cdu.jk.dao.BlogDao">
+<!--    查询所有，进行分页查询-->
+    <select id="findAllBlog" resultType="cdu.jk.entity.Blog" >
+        select * from oblog_db_blog
+    </select>
+
+<!--    插入博客-->
+    <insert id="insertBlog" parameterType="cdu.jk.entity.Blog">
+        insert into oblog_db_blog(title,content,createTime,bloggerId,blogType)
+        value (#{title},#{content},#{createTime},#{bloggerId},#{blogType})
+    </insert>
+
+<!--    修改博客-->
+    <update id="updateBlog" parameterType="cdu.jk.entity.Blog">
+        update oblog_db_blog
+        <set>
+            <if test="title != null" > title=#{title}, </if>
+            <if test="content != null" > content=#{content}, </if>
+            <if test="modifyTime != null" > modifyTime=#{modifyTime}, </if>
+            <if test="blogType != null" > blogType=#{blogType}, </if>
+        </set>
+           where blogId=#{blogId}
+    </update>
+
+    <resultMap id="findContentMap" type="cdu.jk.entity.Blog">
+        <id column="blogId" property="blogId" ></id>
+        <result column="title" property="title"></result>
+        <result column="content" property="content"></result>
+        <result column="createTime" property="createTime"></result>
+        <result column="modifyTime" property="modifyTime"></result>
+        <result column="commentNum" property="commentNum"></result>
+        <result column="bloggerId" property="bloggerId"></result>
+        <result column="blogType" property="blogType"></result>
+<!--        进行查询博主信息-->
+        <association column="bloggerId" property="blogger" javaType="cdu.jk.entity.Blogger">
+            <id column="id" property="id"></id>
+            <result column="email" property="email"></result>
+            <result column="address" property="address"></result>
+        </association>
+    </resultMap>
+<!--    查看博客内容-->
+    <select id="findBlogContent" resultMap="findContentMap" parameterType="int">
+        select blog.*, blogger.email, blogger.address from oblog_db_blog blog,oblog_db_blogger blogger where blogId=#{blogId}
+    </select>
+
+<!--    批量删除博客-->
+    <delete id="deleteBlogs" parameterType="Integer">
+        delete from oblog_db_blog where blogId in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+             #{id}
+        </foreach>
+    </delete>
+
+</mapper>

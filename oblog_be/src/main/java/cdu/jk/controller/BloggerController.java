@@ -49,7 +49,7 @@ public class BloggerController {
     *@Date 2020/5/19 16:44
     *@Modify by xiao 2020/5/19 16:44
     */
-    @PostMapping(value = "/login/in")
+    @RequestMapping(value = "/login/in", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "博主登录")
     public String bloggerLogin(@RequestParam(value = "action",required = false) String action,
@@ -88,7 +88,7 @@ public class BloggerController {
     *@Date 2020/5/20 13:33
     *@Modify by xiao 2020/5/20 13:33
     */
-    @PostMapping(value = "/query/blogger/info")
+    @RequestMapping(value = "/query/blogger/info", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "查询博主个人信息")
     public String selectBloggerByUserName(@RequestParam(value = "userName") String userName){
@@ -115,7 +115,7 @@ public class BloggerController {
     *@Date 2020/5/20 13:39
     *@Modify by xiao 2020/5/20 13:39
     */
-    @GetMapping(value = "/update/blogger/info")
+    @RequestMapping(value = "/update/blogger/info", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "更新博主个人信息")
     public String updateBlogger(@RequestBody BloggerView blogger){
@@ -140,7 +140,7 @@ public class BloggerController {
     *@Date 2020/5/20 14:27
     *@Modify by xiao 2020/5/20 14:27
     */
-    @GetMapping(value = "/add/blogger")
+    @RequestMapping(value = "/add/blogger", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "添加博主")
     public String addBlogger(@RequestParam(value = "userName") String userName,

@@ -10,7 +10,7 @@ public interface ILogService {
 
     int saveLog(Log log);
 
-    List<Log> findAllLog();
+    List<Log> findAllLog(Integer pageNum);
 
-    int deleteLog(Integer id);
+    int deleteLogs(Integer[] id);
 }
