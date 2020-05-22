@@ -22,4 +22,6 @@ public interface IBolgService {
     Blog findBlogContent(Integer id);
 
     int deleteBlogs(Integer[] blogIds);
+
+    List<Blog> findBlogByTitle(String title);
 }

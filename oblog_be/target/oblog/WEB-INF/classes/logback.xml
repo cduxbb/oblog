@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+    <jmxConfigurator />
+    <!--可通过环境变量设置领域名、应用名-->
+    <property name="log.filePath" value="D:/idea_dev_logs/oblog/" />
+    <property name="logback_PATTERN"
+              value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %ex%n" />
+    <!--配置appender-->
+    <appender name="console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${logback_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="error_logger"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.filePath}/err/err.log</file>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.filePath}/err/err.log.%d{yyyy-MM-dd}.log.bak</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${logback_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <logger name="cdu.jk" level="ERROR" additivity="false">
+        <appender-ref ref="error_logger"/>
+    </logger>
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>
