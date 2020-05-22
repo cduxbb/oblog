@@ -91,5 +91,18 @@ public class BlogServiceImpl implements IBolgService {
         return blogDao.deleteBlogs(blogIds);
     }
 
+    /**
+    　　* @Description: 模糊查询博客
+       * @param title
+    　　* @return
+    　　* @throws
+    　　* @author DXZ1
+    　　* @date 2020/5/22 9:50
+    */
+    @Override
+    public List<Blog> findBlogByTitle(String title) {
+        return blogDao.findBlogByTitle(title);
+    }
+
 
 }

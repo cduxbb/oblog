@@ -66,4 +66,14 @@ public interface BlogDao {
     */
     int deleteBlogs(Integer[] blogIds);
 
+    /**
+    　　* @Description: 模糊查询
+       * @param title 参数
+    　　* @return
+    　　* @throws
+    　　* @author DXZ1
+    　　* @date 2020/5/22 9:49
+    */
+    List<Blog> findBlogByTitle(String title);
+
 }

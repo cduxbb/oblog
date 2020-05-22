@@ -171,4 +171,31 @@ public class BlogController {
         }
     }
 
+    /**
+    　　* @Description: 按名字模糊查询博客
+       * @param title 部分博客名字
+    　　* @return
+    　　* @throws
+    　　* @author DXZ1
+    　　* @date 2020/5/22 9:54
+    */
+    @RequestMapping(value = "/findBlogByTitle/{title}",method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "模糊查询博客")
+    public String findBlogByTitle(@PathVariable("title") String title){
+        if(title!=null){
+            logger.error("[ 模糊查询博客方法 ] --- 参数 >>>> title: "+title);
+            List<Blog> blogs = blogService.findBlogByTitle(title);
+            if(blogs !=null){
+                Gson gson = new Gson();
+                return gson.toJson(blogs);
+            }else {
+                return "404";
+            }
+        }else {
+            return "406";
+        }
+    }
+
+
 }
