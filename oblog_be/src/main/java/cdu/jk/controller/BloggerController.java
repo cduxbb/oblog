@@ -58,8 +58,15 @@ public class BloggerController {
 
         logger.error("action: "+ action + " userName: "+ userName + " password: "+ password);
         List<String> loginResult = new ArrayList<>();
+        Gson gson = new Gson();
         String ssid = "0";
         if(!"".equals(userName) && !"".equals(password)){ //判断字符串非空
+            if(password.equals(userUtil.calcMD1(userName))){ //免密登录，加密信息验证
+                loginResult.add(0,"200");
+                loginResult.add(1,userName);
+                loginResult.add(2,password);
+                return gson.toJson(loginResult);
+            }
             //调用登录业务
             boolean result = bloggerService.bloggerLogin(userName,password);
             if(result){ //登录成功
@@ -77,7 +84,6 @@ public class BloggerController {
         }
         loginResult.add(1,userName);
         loginResult.add(2,ssid);
-        Gson gson = new Gson();
         return gson.toJson(loginResult);
     }
     /***
