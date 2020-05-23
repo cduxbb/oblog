@@ -16,7 +16,13 @@
         <mvc:message-converters>
             <!-- 消息转换器,解决responseBody返回中文乱码问题 -->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+                <!--<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />-->
+                <property name="supportedMediaTypes"> <!-- 支持的媒体类型  -->
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
             </bean>
             <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
             <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
