@@ -1,0 +1,7 @@
+export const baseUrl = "http://192.168.0.106:8060/oblog/"
+const blogUrl = "blog"
+export const blogDelUrl = blogUrl + "/deleteBlogs"
+export const blogFindAllUrl = blogUrl + "/findAllBlog/"
+export const blogerUrl = "bloger"
+export const commentUrl = "comment"
+export const logUrl = "log"
