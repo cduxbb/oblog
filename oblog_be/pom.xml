@@ -218,7 +218,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.2</version>
+            <version>3.2.2</version>
         </dependency>
         <!-- 引入mybatis的 pagehelper 分页插件 -->
         <dependency>
